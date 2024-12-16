@@ -1,0 +1,31 @@
+def ipv4_ervenyes(ip):
+    reszek = ip.split(".")
+    if len(reszek) != 4:
+        return False
+    for resz in reszek:
+        if not resz.isdigit():
+            return False
+        szam = int(resz)
+        if szam < 0 or szam > 255:
+            return False
+    return True
+
+def ipv6_ervenyes(ip):
+    reszek = ip.split(":")
+    if len(reszek) != 8:
+        return False
+    for resz in reszek:
+        if not (1 <= len(resz) <= 4 and all(c in "0123456789abcdefABCDEF" for c in resz)):
+            return False
+    return True
+
+def ip_tipus(ip):
+    if ipv4_ervenyes(ip):
+        return "IPv4"
+    elif ipv6_ervenyes(ip):
+        return "IPv6"
+    else:
+        return "Nem érvényes IP cím"
+
+ip = input("Adj meg egy IP címet: ")
+print(ip_tipus(ip))
